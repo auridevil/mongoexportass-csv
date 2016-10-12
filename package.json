@@ -2,10 +2,13 @@
   "name": "mongo-export-rest",
   "version": "0.0.1",
   "description": "Simple rest service to export to csv a mongo collection",
-  "main": "service.js",
+  "main": "./service.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engines" :
+    { "node" : "6.6" }
+  ,
   "author": "Aureliano Bergese",
   "license": "MIT",
   "dependencies": {
@@ -19,7 +22,6 @@
     "koa-simple-json2csv": "^1.0.2",
     "koa-stream": "^0.2.0",
     "mongodb": "^2.2.10",
-    "stream-to-buffer": "^0.1.0",
     "underscore": "^1.8.3"
   }
 }
