@@ -2,7 +2,7 @@
 
 
 const koa = require('koa')();
-const app = require('koa-router')();
+const router = require('koa-router')();
 const middlewares = require('koa-middlewares');
 // const react = require('koa-react-view');
 const path = require('path');
@@ -14,9 +14,9 @@ const serialize = require('./serialize');
 const home = require('./controllers/home');
 const port = process.env.PORT || 3000;
 
-app.get('/', home);
+router.get('/', home);
 
-app.post(
+router.post(
   '/export', auth(), validate(), fetch(), serialize(), function*(next) {
     this.status = 200;
     yield next;
@@ -25,14 +25,14 @@ app.post(
 
 koa.use(middlewares.rt());
 
-app.use(middlewares.staticCache(path.join(__dirname, 'public'), {
+koa.use(middlewares.staticCache(path.join(__dirname, 'public'), {
   buffer: process.env.DEBUG ? false : true,
   maxAge: process.env.DEBUG ? 0 : 60 * 60 * 24 * 7
 }));
 
-app.use(middlewares.bodyParser());
+koa.use(middlewares.bodyParser());
 
-koa.use(app.routes());
+koa.use(router.routes());
 
 koa.listen(port);
 
